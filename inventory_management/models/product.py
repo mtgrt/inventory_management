@@ -9,6 +9,10 @@ class Product(Base):
     name = Column(String, index=True)
     quantity = Column(Integer)
     location = Column(String)
+    batch_number = Column(String)
+    expiry_date = Column(String)
 
     supplier_id = Column(Integer, ForeignKey('suppliers.id'))
     supplier = relationship("Supplier", back_populates="products")
+
+
