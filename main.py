@@ -1,15 +1,14 @@
 from database import SessionLocal, engine
-import models
 from models.product import Product
-from models.supplier import Supplier
-import activity_log
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from cli.database import SessionLocal, engine
 
+from database import SessionLocal, engine, Base
+import activity_log
+from models import Product, Supplier
 
-models.Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 
 def get_db():
     db = SessionLocal()
@@ -95,7 +94,7 @@ def add_product():
     batch_number = input("Enter batch number: ")
     expiry_date = input("Enter expiry date (YYYY-MM-DD): ")
     supplier_id = int(input("Enter supplier ID: "))
-    
+
     db = next(get_db())
     new_product = Product(
         name=name,
@@ -112,7 +111,7 @@ def add_product():
 
 def delete_product():
     product_id = int(input("Enter product ID to delete: "))
-    
+
     db = next(get_db())
     product = db.query(Product).filter(Product.id == product_id).first()
     if product:
@@ -131,7 +130,7 @@ def view_all_products():
 
 def find_product_by_id():
     product_id = int(input("Enter product ID: "))
-    
+
     db = next(get_db())
     product = db.query(Product).filter(Product.id == product_id).first()
     if product:
@@ -153,7 +152,7 @@ def add_supplier():
 
 def delete_supplier():
     supplier_id = int(input("Enter supplier ID to delete: "))
-    
+
     db = next(get_db())
     supplier = db.query(Supplier).filter(Supplier.id == supplier_id).first()
     if supplier:
@@ -172,7 +171,7 @@ def view_all_suppliers():
 
 def find_supplier_by_id():
     supplier_id = int(input("Enter supplier ID: "))
-    
+
     db = next(get_db())
     supplier = db.query(Supplier).filter(Supplier.id == supplier_id).first()
     if supplier:
