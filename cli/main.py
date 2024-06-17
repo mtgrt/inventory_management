@@ -1,4 +1,4 @@
-from cli.database import SessionLocal, engine
+from database import SessionLocal, engine
 import models
 from models.product import Product
 from models.supplier import Supplier
