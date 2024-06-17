@@ -3,6 +3,11 @@ import models
 from models.product import Product
 from models.supplier import Supplier
 import activity_log
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from cli.database import SessionLocal, engine
+
 
 models.Base.metadata.create_all(bind=engine)
 
